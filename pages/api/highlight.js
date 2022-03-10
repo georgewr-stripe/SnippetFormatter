@@ -45,7 +45,7 @@ export default async function handler(req, res) {
   res.status(200).json({
     ...hBlock[0], 
     styles: CSSstring(hBlock[0].styles), 
-    no_line_highlighted: hBlock[0].highlighted.replaceAll(
+    no_line_highlighted: hBlock[0].highlighted.replace(
       new RegExp('(<span[^>]*?class="line-number".*?<\/span>)+', 'g'),
       ''
     )
