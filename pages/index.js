@@ -37,7 +37,7 @@ export default function Home() {
             Sick of pasting badly formatted code in emails and documents? 
           </p>
     <p className="mt-5 text-xl text-gray-600">
-            Simply paste your code and you can copy beautifully formatted code into Google Docs or Gmail
+            Simply paste your code and you can copy beautifully formatted snippets into Google Docs or Gmail
           </p>
         </div>
         <div className="mt-10 w-full max-w-xs">
