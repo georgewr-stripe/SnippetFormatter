@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <>
     <Head>
-      <link rel="shortcut icon" href="/public/favicons/favicon.ico" />
+      <link rel="shortcut icon" href="/favicons/favicon.ico" />
     </Head>
     <div className="bg-white">
       <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 lg:flex lg:justify-between">
