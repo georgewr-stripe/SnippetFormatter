@@ -105,7 +105,7 @@ export default function Home() {
         />
             </div>
             <div className="sm-12 md-6 md:pt-6">
-            <CodeHighlighter code={code} language={language} theme={theme} />
+            <CodeHighlighter code={code} language={language} theme={theme} setCode={setCode}/>
             </div>
             </div>    
             </div>

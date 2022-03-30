@@ -2,38 +2,52 @@
 import torchlight from '@torchlight-api/client/src/torchlight';
 import Block from '@torchlight-api/client/src/block';
 
+const babel = require("@babel/parser");
+const pythonPlugin = require('@prettier/plugin-python');
+const prettier = require("prettier");
+
+const langClassifier = require('language-classifier');
+
 const token = process.env['TORCHLIGHT_TOKEN'];
 
-function CSSstring(string) {
-  const css_json = `{"${string
-    .replace(/; /g, '", "')
-    .replace(/: /g, '": "')
-    .replace(";", "")}"}`;
 
-  const obj = JSON.parse(css_json);
-
-  const keyValues = Object.keys(obj).map((key) => {
-    var camelCased = key.replace(/-[a-z]/g, (g) => g[1].toUpperCase());
-    if (!camelCased.startsWith('-')) {
-      return { [camelCased]: obj[key] };
-    }
-  });
-  return Object.assign({}, ...keyValues);
+const parsers = {
+  python: 'python',
 }
-
 
 export default async function handler(req, res) {
   
-  const {code, language, theme} = req.body;
+  let {code, language, theme} = req.body;
+
+  // Guess the language if not specified
+  const langGuess = langClassifier(code);
+  console.log(`Guessed Language: ${langGuess}`);
+  language = language || langGuess;
 
   torchlight.init({
     token: token.replace(/\r?\n|\r/g, ''), // stupid Node
   })
   torchlight.logger.silence()
 
+  // Make the code pretty
+  let prettyCode;
+  try {
+      prettyCode = prettier.format(code, {
+        semi: false, 
+        parser: parsers[language] || babel.parse,
+        plugins: [
+          pythonPlugin,
+          
+        ]
+      });
+      console.log('Made it prettier')
+    } catch (e) {
+      console.log('Failed to make it prettier')
+    }
+
   const config = {
     language: language || 'js',
-    code: code,
+    code: prettyCode || code,
     theme: theme,
   }
   
@@ -50,4 +64,21 @@ export default async function handler(req, res) {
       ''
     )
   })
+}
+
+function CSSstring(string) {
+  const css_json = `{"${string
+    .replace(/; /g, '", "')
+    .replace(/: /g, '": "')
+    .replace(";", "")}"}`;
+
+  const obj = JSON.parse(css_json);
+
+  const keyValues = Object.keys(obj).map((key) => {
+    var camelCased = key.replace(/-[a-z]/g, (g) => g[1].toUpperCase());
+    if (!camelCased.startsWith('-')) {
+      return { [camelCased]: obj[key] };
+    }
+  });
+  return Object.assign({}, ...keyValues);
 }

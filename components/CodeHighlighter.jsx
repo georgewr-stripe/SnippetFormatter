@@ -14,14 +14,20 @@ const CodeHighlighter = ({code, language, theme}) => {
   const [copied, setCopied] = useState(false);
 
   useEffect(async () => {
+       
     const resp = await fetch('/api/highlight', {
       method: 'POST',
       headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({code: code, language: language, theme: theme})
+    body: JSON.stringify({
+      code: code, 
+      language: language, 
+      theme: theme
     })
+    })
+    
     const hBlock = await resp.json();
     console.log(hBlock);
     setBlock(hBlock);
