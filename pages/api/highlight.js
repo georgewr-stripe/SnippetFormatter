@@ -1,17 +1,8 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import formatCode from './format';
 import torchlight from '@torchlight-api/client/src/torchlight';
 import Block from '@torchlight-api/client/src/block';
 
-const babel = require("@babel/parser");
-const pythonPlugin = require('@prettier/plugin-python');
-const prettier = require("prettier");
-
 const token = process.env['TORCHLIGHT_TOKEN'];
-
-
-const parsers = {
-  python: 'python',
-}
 
 export default async function handler(req, res) {
   
@@ -22,26 +13,14 @@ export default async function handler(req, res) {
   })
   torchlight.logger.silence()
 
-  // Make the code pretty
-  let prettyCode;
-  try {
-      prettyCode = prettier.format(code, {
-        semi: false, 
-        parser: parsers[language] || babel.parse,
-        plugins: [
-          pythonPlugin,
-          
-        ]
-      });
-      console.log('Made it prettier')
-    } catch (e) {
-      console.log('Failed to make it prettier:')
-      console.log(e)
-    }
+  // Make it pretty
+  code = await formatCode(code, language);
+
+  console.log(code)
 
   const config = {
-    language: language || 'js',
-    code: prettyCode || code,
+    language: language,
+    code: code,
     theme: theme,
   }
   
