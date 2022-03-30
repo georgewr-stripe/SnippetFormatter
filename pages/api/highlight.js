@@ -6,8 +6,6 @@ const babel = require("@babel/parser");
 const pythonPlugin = require('@prettier/plugin-python');
 const prettier = require("prettier");
 
-const langClassifier = require('language-classifier');
-
 const token = process.env['TORCHLIGHT_TOKEN'];
 
 
@@ -18,11 +16,6 @@ const parsers = {
 export default async function handler(req, res) {
   
   let {code, language, theme} = req.body;
-
-  // Guess the language if not specified
-  const langGuess = langClassifier(code);
-  console.log(`Guessed Language: ${langGuess}`);
-  language = language || langGuess;
 
   torchlight.init({
     token: token.replace(/\r?\n|\r/g, ''), // stupid Node
