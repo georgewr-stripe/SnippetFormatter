@@ -35,7 +35,8 @@ export default async function handler(req, res) {
       });
       console.log('Made it prettier')
     } catch (e) {
-      console.log('Failed to make it prettier')
+      console.log('Failed to make it prettier:')
+      console.log(e)
     }
 
   const config = {
