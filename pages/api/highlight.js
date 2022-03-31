@@ -16,8 +16,6 @@ export default async function handler(req, res) {
   // Make it pretty
   code = await formatCode(code, language);
 
-  console.log(code)
-
   const config = {
     language: language,
     code: code,

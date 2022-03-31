@@ -2,6 +2,8 @@
 const babel = require("@babel/parser");
 const prettier = require("prettier");
 
+const pythonURL = process.env['PYTHON_FORMATTER_URL'].replace(/\r?\n|\r/g, '');
+
 const catchAll = async (code) => {
   return prettier.format(code, {
     semi: false,
@@ -10,8 +12,8 @@ const catchAll = async (code) => {
 };
 
 const python = async (code) => {
-  const url = process.env['PYTHON_FORMATTER_URL'];
-  const resp = await fetch(url, {
+  
+  const resp = await fetch(pythonURL, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -19,7 +21,9 @@ const python = async (code) => {
     },
     body: JSON.stringify({ code: code })
   });
-  return await resp.body()
+  const text = await resp.json()
+  console.log(text)
+  return text
 };
 
 const formatCode = async (code, language) => {
