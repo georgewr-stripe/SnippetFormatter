@@ -47,6 +47,11 @@ export default function Home() {
     <p className="mt-5 text-xl text-gray-600">
             Simply paste your code and you can copy beautifully formatted snippets into Google Docs or Gmail
           </p>
+          <p className="text-xs text-gray-600">
+            <pre>Partly powered by 
+              <a className="text-gray-500" href="https://torchlight.dev/"> Torchlight.dev</a>
+            </pre>
+          </p>
         </div>
         <div className="mt-10 w-full max-w-xs">
           <label htmlFor="language" className="block text-base font-medium text-gray-500">

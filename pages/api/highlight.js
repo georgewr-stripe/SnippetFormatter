@@ -1,4 +1,4 @@
-import formatCode from './format';
+import formatCode from '../../lib/format';
 import torchlight from '@torchlight-api/client/src/torchlight';
 import Block from '@torchlight-api/client/src/block';
 
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   const config = {
     language: language,
     code: code,
-    theme: theme,
+    theme: theme
   }
   
   // create the block

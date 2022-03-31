@@ -38,7 +38,7 @@ const CodeHighlighter = ({code, language, theme}) => {
   const clipboardContent = renderToString(
     <table>
       <tr>
-    <td style={{...block.styles, borderRadius: '0.25rem'}}>
+    <td style={{...block.styles, borderRadius: '0.25rem', padding: '20px'}}>
     <pre style={block.styles} >
       <code className={block.classes} dangerouslySetInnerHTML={{__html: block.no_line_highlighted}} />
     </pre>
