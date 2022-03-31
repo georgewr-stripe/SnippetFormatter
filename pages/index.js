@@ -9,6 +9,13 @@ import CodeHighlighter from '../components/CodeHighlighter'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import copyToClipboard from '../components/copyToClipboard'
 
+import dynamic from "next/dynamic";
+
+const CodeEditor = dynamic(
+  () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
+  { ssr: false }
+);
+
 
 export default function Home() {
 
@@ -95,14 +102,21 @@ export default function Home() {
       <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-1">
         Paste your code here
       </label>
-        <textarea
-          onChange={(e) => setCode(e.target.value)}
-          rows={4}
-          name="code"
-          id="code"
-          className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-black rounded-md bg-gray-700 text-white box-border p-2"
-          value={_code}
-        />
+        
+                <CodeEditor
+                  value={_code}
+                  name="code"
+                  id="code"
+                  language={language}
+                  onChange={(e) => setCode(e.target.value)}
+                  padding={15}
+                  className="shadow-sm focus:ring-black focus:border-black block w-full sm:text-sm border-black rounded-md bg-gray-700 text-white box-border p-2"
+                  style={{
+                    fontSize: 12,
+                    backgroundColor: "#f5f5f5",
+                    fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                  }}
+                 />
             </div>
             <div className="sm-12 md-6 md:pt-6">
             <CodeHighlighter code={code} language={language} theme={theme} setCode={setCode}/>
