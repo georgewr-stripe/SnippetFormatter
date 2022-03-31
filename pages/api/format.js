@@ -21,7 +21,7 @@ const python = async (code) => {
     },
     body: JSON.stringify({ code: code })
   });
-  const text = await resp.json()
+  const text = await resp.text()
   console.log(text)
   return text
 };
