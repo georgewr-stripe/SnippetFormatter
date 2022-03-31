@@ -21,8 +21,10 @@ const python = async (code) => {
     },
     body: JSON.stringify({ code: code })
   });
+  if (!resp.ok) {
+    throw 'Failed to format Python'
+  }
   const text = await resp.text()
-  console.log(text)
   return text
 };
 
