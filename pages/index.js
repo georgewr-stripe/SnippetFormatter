@@ -102,7 +102,7 @@ export default function Home() {
       </div>
     </div>
 <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 flex items-stretch">
+              <div className="2xl:w-5/6 mx-auto grid grid-cols-1 md:grid-cols-2 flex items-stretch">
               <div className="m-4 sm-12 md-6">
       <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-1">
         Paste your code here

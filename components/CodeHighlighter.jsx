@@ -7,6 +7,7 @@ import {ClipboardIcon, ClipboardCheckIcon} from '@heroicons/react/outline'
 const CodeHighlighter = ({code, language, theme}) => {
   const [block, setBlock] = useState({
     highlighted: '',
+    no_line_highlighted: '',
     styles: {},
     classes: ''
   });
@@ -38,7 +39,7 @@ const CodeHighlighter = ({code, language, theme}) => {
   const clipboardContent = renderToString(
     <table>
       <tr>
-    <td style={{...block.styles, borderRadius: '0.25rem', padding: '20px'}}>
+    <td style={{...block.styles, borderRadius: '0.25rem', padding: '16px'}}>
     <pre style={block.styles} >
       <code className={block.classes} dangerouslySetInnerHTML={{__html: block.no_line_highlighted}} />
     </pre>
@@ -48,7 +49,7 @@ const CodeHighlighter = ({code, language, theme}) => {
   )
 
     const handleCopy = copyToClipboard(clipboardContent, () => {
-    setCopied(true);
+      setCopied(true);
       console.log(clipboardContent)
   });
 
